@@ -1,22 +1,26 @@
-
 <h1  align="center">Listado de Ciudades</h1>
 <div class="container">
-        <div class="row">
-            <div class="col">imagen</div>
-            <div class="col">Ciudad 1 </div>
-            <div class="col" > <a class="btn  btn-outline-primary"> Agregar</a></div>
-        </div>
-        <div class="row">
-            <div class="col">imagen</div>
-            <div class="col">Ciudad 2 </div>
-            <div class="col" > <a class="btn  btn-outline-primary"> Agregar</a></div>
-        </div>
-        <div class="row">
-            <div class="col">imagen</div>
-            <div class="col">Ciudad 3 </div>
-            <div class="col" > <a class="btn  btn-outline-primary"> Agregar</a></div>
-        </div>
+    <div class="row">
+       <ng-container *ngFor="let city of citiesList">
+           <ng-template [ngIf]="city.cityId  != '0'">
+                <div class="col-md-4">
+                    <div class="card text-center">
+                    <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0Q2dmSNgHy0SlKHhvKDaZyMOLplq6-xhwLg&usqp=CAU" >
+                    <div class="card-body">
+                        <h2 class="card-title">{{city.name}}</h2>
+                        <a  class="btn  btn-outline-primary" (click)="addCity(city)">Agregar</a>
+                    </div>
+                    </div>
+                    <div class="card mb-4 shadow-sm"></div>
+                </div>
+            </ng-template>
+       </ng-container>
 </div>
-<h3>La ruta es :  [RUTA ]</h3>
-  
-    
+<div class="calcular"> <h2>Ciudades seleccionadas</h2>
+    <ng-template [ngIf]="listAdd.length>0 "></ng-template>
+       <ng-container *ngFor="let cityAdd of listAdd">
+          <h4>{{cityAdd.name}} <a  class="btn  btn-outline-warning" (click)="removeCity(cityAdd)">Quitar</a>  </h4>     
+       </ng-container>
+   <button class="btn btn-success" > Calcular </button>
+</div>
+</div>
