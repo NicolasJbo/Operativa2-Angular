@@ -1,5 +1,13 @@
-.encab{
-    text-align: center;
-    color: rgb(224, 224, 224);      
-    background-color: rgb(9, 57, 97);
+
+.calcular{
+    background-color: rgb(168, 167, 167);
+    border-radius: 5%;
+}
+.container{
+    padding: 1%;
+    width: 100%;
+    background-color: hsla(24, 87%, 78%, 0.534);
+    color: black;
+    font-size: larger;
+    border-radius: 1%;
 }

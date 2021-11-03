@@ -1,4 +1,4 @@
-<h1  align="center">Listado de Ciudades</h1>
+<h1  align="center" ><font color="white">Listado de Ciudades</font></h1>
 <div class="container">
     <div class="row">
        <ng-container *ngFor="let city of citiesList">
@@ -8,7 +8,11 @@
                     <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0Q2dmSNgHy0SlKHhvKDaZyMOLplq6-xhwLg&usqp=CAU" >
                     <div class="card-body">
                         <h2 class="card-title">{{city.name}}</h2>
-                        <a  class="btn  btn-outline-primary" (click)="addCity(city)">Agregar</a>
+
+                        <div *ngIf="city.show==false; then thenBlock else elseBlock"></div>
+                        <ng-template #thenBlock><a  class="btn  btn-outline-primary" (click)="addCity(city)">Agregar</a></ng-template>
+                        <ng-template #elseBlock><p > <font color="green"><b> Ciudad Agregada</b></font></p></ng-template>
+                       
                     </div>
                     </div>
                     <div class="card mb-4 shadow-sm"></div>
@@ -16,6 +20,8 @@
             </ng-template>
        </ng-container>
 </div>
+
+
 <div class="calcular"> <h2>Ciudades seleccionadas</h2>
     <ng-template [ngIf]="listAdd.length>0 "></ng-template>
        <ng-container *ngFor="let cityAdd of listAdd">

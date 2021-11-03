@@ -1,4 +1,7 @@
 .wrapper{
     margin-left: 3%;
     width: 90%;
+    background-color: hsla(24, 87%, 78%, 0.534);
+    color: black;
+    font-size: larger;
 }

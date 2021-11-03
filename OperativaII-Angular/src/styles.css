@@ -1,1 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+ background-image:url("https://www.proandroid.com/wp-content/uploads/2017/04/Paisaje-HD.jpg");
+ background-repeat: no-repeat;
+ background-attachment: fixed;
+ background-size:cover;
+}
