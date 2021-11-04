@@ -1,25 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { City } from 'src/app/models/city';
-
+import { Urls } from 'src/app/models/urls';
+import { ApiService } from 'src/app/service/api.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  
+  constructor(private apiService: ApiService) { 
+  }
 
-  constructor() { }
-  citiesList :Array<City>=[{cityId: '0',name: 'Mar del Plata',show :false },
-  {cityId: '1',name: 'Carlos Paz',show :false},{cityId: '2',name: 'Bariloche',show :false},{cityId: '2',name: 'Esta ciudad esta mal! (noc cual es)',show :false},
-  {cityId: '4',name: 'Usuahia',show :false},{cityId: '5',name: 'Salta',show :false},{cityId: '6',name: 'Jujuy',show :false},
-  {cityId: '7',name: 'Neuquen',show :false},{cityId: '8',name: 'San Luis',show :false},{cityId: '9',name: 'Rosario',show :false},{cityId: '10',name: 'San Juan',show :false}];
+  citiesList :Array<City>=[{cityId: '0',name: 'Mar del Plata',show :false ,imrUrl: Urls.URL_BASE},
+  {cityId: '1',name: 'Carlos Paz',show :false,imrUrl: Urls.URL_CARLOS_PAZ},
+  {cityId: '2',name: 'Bariloche',show :false,imrUrl: Urls.URL_BARILOCHE},
+  {cityId: '3',name: 'Mendoza',show :false,imrUrl: Urls.URL_MENDOZA},
+  {cityId: '4',name: 'Usuahia',show :false,imrUrl: Urls.URL_USUAHIA},
+  {cityId: '5',name: 'Salta',show :false,imrUrl: Urls.URL_SALTA},
+  {cityId: '6',name: 'Jujuy',show :false,imrUrl: Urls.URL_JUJUY},
+  {cityId: '7',name: 'Neuquen',show :false,imrUrl: Urls.URL_NEQUEN},
+  {cityId: '8',name: 'San Luis',show :false,imrUrl: Urls.URL_SAN_LUIS},
+  {cityId: '9',name: 'Rosario',show :false,imrUrl: Urls.URL_ROSARIO},
+  {cityId: '10',name: 'San Juan',show :false,imrUrl: Urls.URL_SAN_JUAN}];
 
   ngOnInit(): void {
   }
   listAdd : Array<City>= [];
+  apiBody = new Set<number>();
+  bestRoute : Array<City>= [];
   
   addCity(c :City){
-    
+  
     let contains = false;
     let cityID = c.cityId;
 
@@ -41,6 +53,23 @@ export class HomeComponent implements OnInit {
         this.listAdd.splice(index, 1);
         c.show=false;
     });
+  }
+
+  calcular(){
+
+    this.listAdd.forEach(c => {
+      this.apiBody.add((Number)(c.cityId));      
+    });
+
+    this.apiService.getEconomicPath()
+    .then(response => {
+      this.bestRoute=response
+    })
+    .catch(error => {
+      console.log(error);
+    })
+    console.log(this.bestRoute);
+    
   }
 
 }
