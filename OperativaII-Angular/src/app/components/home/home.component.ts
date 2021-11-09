@@ -27,8 +27,9 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
   listAdd : Array<City>= [];
-  apiBody = new Set<number>();
+  apiBody =  Array<number>();
   bestRoute : Array<City>= [];
+  totalKm;
   
   addCity(c :City){
   
@@ -56,19 +57,21 @@ export class HomeComponent implements OnInit {
   }
 
   calcular(){
-
+ this.apiBody = new Array<number>();
     this.listAdd.forEach(c => {
-      this.apiBody.add((Number)(c.cityId));      
+     
+      this.apiBody.push((Number)(c.cityId))
     });
+    this.apiService.getPath(this.apiBody).subscribe(
+      response => {    
+       this.bestRoute =response['locations'];
+       this.totalKm=response['totalDistance'];
+    
+      },
+    error => {
+      
+    })
 
-    this.apiService.getEconomicPath()
-    .then(response => {
-      this.bestRoute=response
-    })
-    .catch(error => {
-      console.log(error);
-    })
-    console.log(this.bestRoute);
     
   }
 
